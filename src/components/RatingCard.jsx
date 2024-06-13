@@ -46,9 +46,8 @@ const RatingCard = () => {
       <h1>Please Rate</h1>
       <div className={classes.rating}>
         {ratings.map((rating) => (
-          <div>
+          <div key={rating.value}>
             <img
-              key={rating.value}
               src={
                 activeRating !== null
                   ? activeRating >= rating.value
@@ -59,6 +58,7 @@ const RatingCard = () => {
               onClick={() => handleRating(rating.value)}
               onMouseOver={() => handleMouseOver(rating.value)}
               onMouseOut={handleMouseOut}
+              alt="star"
             />
             {hoveredRating === rating.value && (
               <span>{rating.description}</span>
