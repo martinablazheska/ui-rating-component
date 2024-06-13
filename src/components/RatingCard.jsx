@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import greyStar from "/assets/grey_star.svg";
 import goldStar from "/assets/gold_star.svg";
@@ -10,13 +10,7 @@ import setRating from "../utils/setRating";
 
 import classes from "./RatingCard.module.scss";
 
-const ratings = [
-  { value: 1, description: "very poor" },
-  { value: 2, description: "poor" },
-  { value: 3, description: "okay" },
-  { value: 4, description: "very good" },
-  { value: 5, description: "excellent" },
-];
+const ratings = [1, 2, 3, 4, 5];
 
 const RatingCard = () => {
   const [currentRating, setCurrentRating] = useState(getRating());
@@ -49,8 +43,6 @@ const RatingCard = () => {
 
   const activeRating = hoveredRating ? hoveredRating : currentRating;
 
-  useEffect(() => console.log(activeRating), [activeRating]);
-
   const getStar = (rating) => {
     if (activeRating) {
       if (activeRating === rating - 0.5) {
@@ -72,11 +64,11 @@ const RatingCard = () => {
       <h1>Please Rate</h1>
       <div className={classes.rating}>
         {ratings.map((rating) => (
-          <div key={rating.value}>
+          <div key={rating}>
             <img
-              src={getStar(rating.value)}
-              onClick={(event) => handleRating(event, rating.value)}
-              onMouseOver={(event) => handleMouseOver(event, rating.value)}
+              src={getStar(rating)}
+              onClick={(event) => handleRating(event, rating)}
+              onMouseOver={(event) => handleMouseOver(event, rating)}
               onMouseOut={handleMouseOut}
               alt="star"
             />
