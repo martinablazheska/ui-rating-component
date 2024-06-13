@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import greyStar from "/assets/grey_star.svg";
 import goldStar from "/assets/gold_star.svg";
+import halfStar from "/assets/half_star.svg";
 import vassLogo from "/assets/vass_logo.svg";
 
 import getRating from "../utils/getRating";
@@ -21,18 +22,25 @@ const RatingCard = () => {
   const [currentRating, setCurrentRating] = useState(getRating());
   const [hoveredRating, setHoveredRating] = useState(null);
 
-  const handleRating = (value) => {
-    if (value === currentRating) {
-      setCurrentRating(null);
-      setRating(null);
+  const handleRating = (event, value) => {
+    const boundingRect = event.target.getBoundingClientRect();
+
+    if (event.clientX < boundingRect.x + boundingRect.width / 2) {
+      setCurrentRating(value - 0.5);
+      setRating(value - 0.5);
     } else {
       setCurrentRating(value);
       setRating(value);
     }
   };
 
-  const handleMouseOver = (value) => {
-    setHoveredRating(value);
+  const handleMouseOver = (event, value) => {
+    const boundingRect = event.target.getBoundingClientRect();
+    if (event.clientX < boundingRect.x + boundingRect.width / 2) {
+      setHoveredRating(value - 0.5);
+    } else {
+      setHoveredRating(value);
+    }
   };
 
   const handleMouseOut = () => {
@@ -41,6 +49,24 @@ const RatingCard = () => {
 
   const activeRating = hoveredRating ? hoveredRating : currentRating;
 
+  useEffect(() => console.log(activeRating), [activeRating]);
+
+  const getStar = (rating) => {
+    if (activeRating) {
+      if (activeRating === rating - 0.5) {
+        return halfStar;
+      } else {
+        if (activeRating >= rating) {
+          return goldStar;
+        } else {
+          return greyStar;
+        }
+      }
+    } else {
+      return greyStar;
+    }
+  };
+
   return (
     <div className={classes.card}>
       <h1>Please Rate</h1>
@@ -48,25 +74,16 @@ const RatingCard = () => {
         {ratings.map((rating) => (
           <div key={rating.value}>
             <img
-              src={
-                activeRating !== null
-                  ? activeRating >= rating.value
-                    ? goldStar
-                    : greyStar
-                  : greyStar
-              }
-              onClick={() => handleRating(rating.value)}
-              onMouseOver={() => handleMouseOver(rating.value)}
+              src={getStar(rating.value)}
+              onClick={(event) => handleRating(event, rating.value)}
+              onMouseOver={(event) => handleMouseOver(event, rating.value)}
               onMouseOut={handleMouseOut}
               alt="star"
             />
-            {hoveredRating === rating.value && (
-              <span>{rating.description}</span>
-            )}
           </div>
         ))}
       </div>
-      <p>Your Feedback is Very Important To Us.</p>
+      <p>Your Feedback Is Very Important To Us.</p>
       <img src={vassLogo} alt="logo" />
     </div>
   );
