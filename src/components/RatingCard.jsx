@@ -15,11 +15,15 @@ const ratings = [1, 2, 3, 4, 5];
 const RatingCard = () => {
   const [currentRating, setCurrentRating] = useState(getRating());
   const [hoveredRating, setHoveredRating] = useState(null);
+  const [positionX, setPositionX] = useState(null);
 
   const handleRating = (event, value) => {
     const boundingRect = event.target.getBoundingClientRect();
 
-    if (event.clientX < boundingRect.x + boundingRect.width / 2) {
+    if (
+      positionX >= boundingRect.x &&
+      positionX < boundingRect.x + boundingRect.width / 2
+    ) {
       setCurrentRating(value - 0.5);
       setRating(value - 0.5);
     } else {
@@ -30,7 +34,10 @@ const RatingCard = () => {
 
   const handleMouseOver = (event, value) => {
     const boundingRect = event.target.getBoundingClientRect();
-    if (event.clientX < boundingRect.x + boundingRect.width / 2) {
+    if (
+      positionX >= boundingRect.x &&
+      positionX < boundingRect.x + boundingRect.width / 2
+    ) {
       setHoveredRating(value - 0.5);
     } else {
       setHoveredRating(value);
@@ -64,7 +71,13 @@ const RatingCard = () => {
       <h1>Please Rate</h1>
       <div className={classes.rating}>
         {ratings.map((rating) => (
-          <div key={rating}>
+          <div
+            key={rating}
+            onMouseMove={(event) => {
+              setPositionX(event.clientX);
+              handleMouseOver(event, rating);
+            }}
+          >
             <img
               src={getStar(rating)}
               onClick={(event) => handleRating(event, rating)}
