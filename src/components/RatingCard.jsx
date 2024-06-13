@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import greyStar from "/assets/grey_star.svg";
 import goldStar from "/assets/gold_star.svg";
