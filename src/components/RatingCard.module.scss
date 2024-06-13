@@ -1,0 +1,35 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 30px 15px;
+  background-color: #fff;
+  width: 300px;
+  height: 300px;
+
+  h1 {
+    font-size: 18px;
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+
+  .rating {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    img {
+      cursor: pointer;
+    }
+  }
+
+  p {
+    color: #767676;
+    width: 70%;
+    text-align: center;
+    margin: 0;
+    font-size: 15px;
+    line-height: 24px;
+  }
+}
