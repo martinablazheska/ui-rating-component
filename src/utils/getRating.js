@@ -1,5 +1,5 @@
 function getRating() {
-  return sessionStorage.getItem("rating");
+  return Number(sessionStorage.getItem("rating"));
 }
 
 export default getRating;
