@@ -18,9 +18,19 @@
     display: flex;
     justify-content: center;
     gap: 20px;
-
-    img {
-      cursor: pointer;
+    div {
+      img {
+        cursor: pointer;
+      }
+      span {
+        position: absolute;
+        font-size: 10px;
+        background-color: #767676;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 15px;
+        padding: 10px;
+      }
     }
   }
 
