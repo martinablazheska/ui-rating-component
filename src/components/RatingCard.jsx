@@ -77,14 +77,11 @@ const RatingCard = () => {
               setPositionX(event.clientX);
               handleMouseOver(event, rating);
             }}
+            onClick={(event) => handleRating(event, rating)}
+            onMouseOver={(event) => handleMouseOver(event, rating)}
+            onMouseOut={handleMouseOut}
           >
-            <img
-              src={getStar(rating)}
-              onClick={(event) => handleRating(event, rating)}
-              onMouseOver={(event) => handleMouseOver(event, rating)}
-              onMouseOut={handleMouseOut}
-              alt="star"
-            />
+            <img src={getStar(rating)} alt="star" />
           </div>
         ))}
       </div>

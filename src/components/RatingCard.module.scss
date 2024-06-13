@@ -17,8 +17,8 @@
   .rating {
     display: flex;
     justify-content: center;
-    gap: 20px;
     div {
+      padding: 0 10px;
       img {
         cursor: pointer;
       }
